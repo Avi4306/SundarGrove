@@ -3,9 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleRegister } from "../../actions/user";
 import { Link, useNavigate } from "react-router-dom";
 
-
 function Register() {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, loading, error, success } = useSelector((state) => state.auth);
@@ -18,7 +22,14 @@ function Register() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(handleRegister(form));
+    // Combine first and last name into a single 'name' field
+    const fullName = `${form.firstName} ${form.lastName}`;
+    const registrationData = {
+      name: fullName,
+      email: form.email,
+      password: form.password,
+    };
+    dispatch(handleRegister(registrationData));
   };
 
   return (
@@ -28,13 +39,23 @@ function Register() {
       </div>
       <div className="bg-[rgba(255,255,255,0.7)] shadow-md rounded-xl p-6 w-full max-w-md text-center pb-8">
         <h2 className="text-3xl font-bold mb-4">Register</h2>
-        <p className="mb-6 text-gray-700">Join SundarGrove and become a Guardian! Fill in your details below:</p>
+        <p className="mb-6 text-gray-700">
+          Join SundarGrove and become a Guardian! Fill in your details below:
+        </p>
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
           <input
             type="text"
-            placeholder="Full Name"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            placeholder="First Name"
+            value={form.firstName}
+            onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+            className="rounded-xl px-3 py-2 bg-[rgba(4,132,67,0.36)]"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={form.lastName}
+            onChange={(e) => setForm({ ...form, lastName: e.target.value })}
             className="rounded-xl px-3 py-2 bg-[rgba(4,132,67,0.36)]"
             required
           />
@@ -67,7 +88,7 @@ function Register() {
         {error && <p className="text-red-500 mt-3 text-center">{error}</p>}
         {user && <p className="text-green-600 mt-3 text-center">Welcome {user.name || user.email}</p>}
         <div className="mt-6 text-gray-600">
-          Already a user?{' '}
+          Already a user?{" "}
           <Link to="/" className="text-green-600 font-semibold hover:underline">
             Sign In
           </Link>
