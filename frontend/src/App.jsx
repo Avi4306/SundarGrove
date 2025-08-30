@@ -9,6 +9,9 @@ import Reports from "./components/Reports/Reports";
 import Homepage from "./components/Home/Homepage";
 import './App.css';
 import MangroveMap from "./components/map.jsx"
+import SmsButton from './components/sms.jsx'; // Adjust the import path as needed
+const managerNumber = '+919876543210'; // Replace with the recipient number
+const dailyReport = 'System status: OK. All tasks completed.';
 
 const markers = [
   { position: [23.0225, 72.5714], popup: "Ahmedabad" },
