@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { handleLogin } from "../../../actions/user";
+import { handleLogin } from "../../actions/user";
 
 function Home() {
   const [form, setForm] = useState({ email: "", password: "" });
