@@ -20,7 +20,7 @@ export const predictMangrove = async (req, res) => {
     });
 
     // Post to Flask backend
-    const response = await axios.post('http://127.0.0.1:5000/predict', formData, {
+    const response = await axios.post(`${ FLASK_URL || "http://127.0.0.1:5000"}/predict`, formData, {
       headers: formData.getHeaders(), // Proper multipart headers
       maxContentLength: Infinity,
       maxBodyLength: Infinity,
