@@ -25,6 +25,17 @@ export const predictMangrove = async (req, res) => {
       maxContentLength: Infinity,
       maxBodyLength: Infinity,
     });
+    console.log('Prediction response:', response.data);
+    if(response.data.confidence > 0.8 && response.data.prediction === 'nonmangrove'){
+      response.data.status = 'rejected';
+    }
+    else if(response.data.confidence > 0.7 && response.data.prediction === 'mangrove'){
+      response.data.status = 'accepted';
+    }
+    else{
+      response.data.status = 'pending';
+    }
+    console.log('frompredictController:', response.data.status);
 
     return res.json(response.data);
   } catch (error) {

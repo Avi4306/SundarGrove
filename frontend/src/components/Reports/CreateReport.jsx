@@ -3,8 +3,9 @@ import { useState } from "react";
 import FloatingNavBar from "../Home/FloatingNavBar";
 import { motion, AnimatePresence } from "framer-motion";
 import { uploadImage } from "../../api/index";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux"; // Removed useSelector
 import { handleCreateReport } from "../../actions/report";
+import { handlePrediction } from "../../actions/predict"; // Assuming handlePrediction returns the prediction result
 
 function CreateReport() {
   useEffect(() => {
@@ -31,6 +32,7 @@ const [success, setSuccess] = useState("");
     }
   }, [success]);
   const dispatch = useDispatch();
+
   const typeOptions = [
     { value: "cutting", label: "Cutting" },
     { value: "dumping", label: "Dumping" },
@@ -39,7 +41,6 @@ const [success, setSuccess] = useState("");
     { value: "others", label: "Others" },
   ];
   
-  // ...existing code...
 
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -67,7 +68,10 @@ const [success, setSuccess] = useState("");
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setImageFile(file);
-    setPreview(URL.createObjectURL(file));
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    }
+    // We will now handle prediction logic inside handleSubmit
   };
 
   const handleSubmit = async (e) => {
@@ -77,19 +81,40 @@ const [success, setSuccess] = useState("");
 
     try {
       let imageUrl = "";
+      let finalStatus = "pending";
+      let finalType = formData.type;
+      let finalLocation = formData.location;
 
       if (imageFile) {
+        // Step 1: Upload the image to Cloudinary
         const base64 = await convertToBase64(imageFile);
         const { data } = await uploadImage({
           fileData: base64,
           folderName: "reports",
         });
         imageUrl = data.imageUrl;
+
+        // Step 2: Get the prediction from the API
+        const predictionResult = await dispatch(handlePrediction(imageFile));
+
+        // Step 3: Use the prediction result directly
+        if (predictionResult && predictionResult.status) {
+          finalStatus = predictionResult.status;
+          finalType = predictionResult.type || formData.type;
+          finalLocation = predictionResult.location || formData.location;
+        }
       }
-      await dispatch(handleCreateReport({
-        ...formData,
-        imageUrl,
-      }));
+
+      // Step 4: Create the report with all collected data
+      await dispatch(
+        handleCreateReport({
+          ...formData,
+          imageUrl,
+          status: finalStatus,
+          type: finalType,
+          location: finalLocation,
+        })
+      );
 
       setSuccess("Report submitted successfully!");
       setFormData({ title: "", description: "", type: "cutting"});
