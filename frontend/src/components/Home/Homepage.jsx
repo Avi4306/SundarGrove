@@ -4,16 +4,13 @@ import FloatingNavBar from "./FloatingNavBar";
 
 export default function Homepage() {
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen bg-[url('./src/assets/SG-1.jpg')]">
-      {/* Floating Nav Bar at bottom */}
+    <div className="relative flex flex-col items-center  min-h-screen bg-[url('./src/assets/SG-1.jpg')]">
+      
       <FloatingNavBar />
-      {/* Main Card */}
-      <div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-3xl mt-32 flex flex-col items-center">
-        <img
-          src={logo}
-          alt="SundarGrove Logo"
-          className="h-20 w-20 mb-4 rounded-full shadow-lg"
-        />
+      <div>
+        <img src={logo} alt="SundarGrove" className="h-60" />
+      </div>
+      <div className="bg-[rgba(255,255,255,0.6)] rounded-xl shadow-2xl p-8 w-full max-w-3xl flex flex-col items-center">
         <h1 className="text-4xl font-bold mb-4 text-green-700 drop-shadow-lg text-center">
           Welcome to SundarGrove
         </h1>
