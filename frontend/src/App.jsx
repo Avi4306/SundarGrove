@@ -8,8 +8,8 @@ import Reports from "./components/Reports/Reports";
 import Homepage from "./components/Home/Homepage";
 import './App.css';
 import React, { lazy, Suspense } from "react";
-import SmsButton from './components/sms.jsx'; // Adjust the import path as needed
-const managerNumber = '+919876543210'; // Replace with the recipient number
+import SmsButton from './components/sms.jsx';
+const managerNumber = '+919876543210';
 const dailyReport = 'System status: OK. All tasks completed.';
 import img1 from "./assets/SG-1.jpg"
 import img2 from "./assets/SG-2.jpg"

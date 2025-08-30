@@ -103,11 +103,10 @@ function Register() {
               </button>
             </div>
           </form>
-          {error && <p className="text-red-500 mt-3 text-center">{error}</p>}
           {user && <p className="text-green-600 mt-3 text-center">Welcome {user.name || user.email}</p>}
           <div className="mt-6 text-gray-600 ">
             Already a user?{' '}
-            <Link to="/" className="text-green-600 font-semibold hover:underline mt-0 mb-6">
+            <Link to="/login" className="text-green-600 font-semibold hover:underline mt-0 mb-6">
               Sign In
             </Link>
           </div>

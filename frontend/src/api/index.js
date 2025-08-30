@@ -39,3 +39,8 @@ export const updateUserRole = (userId, newRole) =>
 export const getAdminReports = () => api.get("/admin/reports");
 export const verifyReport = (reportId) => api.put(`/admin/reports/${reportId}/verify`);
 export const rejectReport = (reportId) => api.put(`/admin/reports/${reportId}/reject`);
+
+export const predictMangrove = (formData) =>
+  api.post("/predict", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });

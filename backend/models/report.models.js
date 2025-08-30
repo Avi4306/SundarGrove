@@ -6,7 +6,21 @@ const reportSchema = new mongoose.Schema(
     description: { type: String },
     imageUrl: { type: String }, // Cloudinary URL
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    status: { type: String, enum: ["pending", "pending to review", "accepted", "rejected"], default: "pending" },
+    status: {
+      type: String,
+      enum: ["pending", "accepted", "rejected"],
+      default: "pending",
+    },
+    location: {
+      type: {
+        type: String,
+        enum: ["Point"],
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
+    },
   },
   { timestamps: true }
 );
