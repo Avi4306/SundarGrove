@@ -23,13 +23,20 @@ export const deleteUserById = async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }
+    
+    // First, delete all reports associated with this user
+    await Report.deleteMany({ createdBy : req.params.id });
+    
+    // Then, delete the user themselves
     await user.deleteOne();
-    res.json({ msg: 'User removed' });
+
+    res.json({ msg: 'User and all associated reports removed' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
   }
 };
+
 export const updateUserRoleById = async (req, res) => {
   const { role } = req.body;
   try {
