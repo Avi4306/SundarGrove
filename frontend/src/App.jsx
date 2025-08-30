@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Login from "./components/User/Login";
 import Register from "./components/User/Register";
 import Profile from "./components/User/Profile";
@@ -15,30 +15,46 @@ const markers = [
 ];
 
 function App() {
-  const user = useSelector((state) => state.auth.user);
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/report" element={<Reports />} />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/map" element={
+    <Routes>
+      <Route path="/" element={
+        <ProtectedRoute>
+        <Home />
+        </ProtectedRoute>
+      } />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      
+      <Route
+        path="/reports"
+        element={
+          <ProtectedRoute>
+            <Reports />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+       <Route path="/map" element={
           <div style={{ height: "100vh", width: "100vh" }}>
             <MangroveMap geoJsonPath="/mangrove_india.geojson" markers={markers} />
           </div>
-        }>
-        </Route>
-      </Routes>
-    </Router>
+        }></Route>
+      
+      <Route path="*" element={
+        <div style={{ textAlign: 'center', padding: '50px', color: '#78716c' }}>
+          <h1>404 - Page Not Found</h1>
+          <p>The page you are looking for does not exist.</p>
+          <p><Link to="/" style={{ color: '#44403c', textDecoration: 'underline' }}>Go to Home</Link></p>
+        </div>
+      } />
+    </Routes>
   );
 }
 

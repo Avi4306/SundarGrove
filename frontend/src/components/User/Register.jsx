@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleRegister } from "../../actions/user";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, loading, error } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/reports");
+    }
+  }, [user, navigate]);
 
   const onSubmit = (e) => {
     e.preventDefault();
