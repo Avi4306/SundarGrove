@@ -1,9 +1,10 @@
 // server.js
 
-import express from 'express';
-import twilio from 'twilio';
-import 'dotenv/config';
-import cors from 'cors'; 
+// 1. Load dependencies
+const express = require('express');
+const twilio = require('twilio');
+require('dotenv').config(); // Loads credentials from .env file
+
 // 2. Get credentials from environment variables
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -13,8 +14,6 @@ const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
 const app = express();
 app.use(express.json()); // Middleware to parse JSON request bodies
 const client = twilio(accountSid, authToken);
-app.use(cors());
-
 
 // 4. Create the API endpoint for sending SMS
 app.post('/send-sms', (req, res) => {
@@ -42,6 +41,7 @@ app.post('/send-sms', (req, res) => {
     });
 });
 
+// 6. Start the server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
