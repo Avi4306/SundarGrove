@@ -14,43 +14,49 @@ function MyReports() {
 
   if (loading) return <p>Loading reports...</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
-  if (!myReports.length) return <p>No reports submitted yet.</p>;
+  if (!myReports.length) return (
+    <div className="min-h-[40vh] flex flex-col items-center justify-center p-8 rounded-2xl shadow-md" style={{ backgroundColor: '#c5eba8' }}>
+      <h2 className="text-2xl font-bold text-green-700 mb-2">No Reports Yet</h2>
+      <p className="text-gray-600 text-center mb-4">You haven't submitted any reports.<br />Start contributing to mangrove conservation!</p>
+    </div>
+  );
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">My Reports</h2>
-      <div className="grid gap-4 md:grid-cols-2">
+    <div className="min-h-screen p-4 sm:p-8" style={{ backgroundColor: '#c5eba8' }}>
+      <h2 className="text-3xl font-bold mb-8 text-center text-green-700 drop-shadow">My Reports</h2>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {myReports.map((report) => (
           <div
             key={report._id}
-            className="border rounded-lg shadow p-4 bg-white"
+            className="border rounded-2xl shadow-lg p-5 bg-white hover:shadow-2xl transition-shadow duration-300 flex flex-col justify-between"
           >
-            <h3 className="text-lg font-semibold">{report.title}</h3>
-            <p className="text-gray-600">{report.description}</p>
+            <h3 className="text-xl font-semibold mb-2 text-green-800">{report.title}</h3>
+            <p className="text-gray-700 mb-2">{report.description}</p>
             {report.imageUrl && (
               <img
                 src={report.imageUrl}
                 alt={report.title}
-                className="w-full h-40 object-cover rounded mt-2"
+                className="w-full h-40 object-cover rounded-lg mb-2 border"
               />
             )}
-            <p className="text-sm text-gray-500 mt-2">
-              Status:{" "}
+            <div className="flex items-center justify-between mt-2">
               <span
                 className={
-                  report.status === "verified"
-                    ? "text-green-600"
+                  "px-3 py-1 rounded-full text-xs font-bold " +
+                  (report.status === "verified"
+                    ? "bg-green-100 text-green-700 border border-green-300"
                     : report.status === "rejected"
-                    ? "text-red-600"
-                    : "text-yellow-600"
+                    ? "bg-red-100 text-red-700 border border-red-300"
+                    : "bg-yellow-100 text-yellow-700 border border-yellow-300")
                 }
               >
-                {report.status}
+                {report.status.charAt(0).toUpperCase() + report.status.slice(1)}
               </span>
-            </p>
-            <p className="text-xs text-gray-400">
-              Created: {new Date(report.createdAt).toLocaleString()}
-            </p>
+              <span className="text-xs text-gray-500">
+                {new Date(report.createdAt).toLocaleDateString()}<br />
+                {new Date(report.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </span>
+            </div>
           </div>
         ))}
       </div>

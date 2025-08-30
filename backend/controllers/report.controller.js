@@ -2,13 +2,14 @@ import Report from "../models/report.models.js";
 
 export const createReport = async (req, res) => {
   try {
-    const { title, description, imageUrl} = req.body;
-
+    const { title, description, imageUrl, status} = req.body;
+    console.log("Creating report with status:", status);
     const newReport = new Report({
       title,
       description,
       imageUrl, // Cloudinary returns a URL here
       createdBy: req.user.id,   // assuming user is authenticated
+      status,
     });
 
     await newReport.save();

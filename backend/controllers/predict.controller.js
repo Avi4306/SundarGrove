@@ -20,11 +20,22 @@ export const predictMangrove = async (req, res) => {
     });
 
     // Post to Flask backend
-    const response = await axios.post('https://mangrove-detector-api.onrender.com/predict', formData, {
+    const response = await axios.post(`${ process.env.FLASK_URL}/predict`, formData, {
       headers: formData.getHeaders(), // Proper multipart headers
       maxContentLength: Infinity,
       maxBodyLength: Infinity,
     });
+    console.log('Prediction response:', response.data);
+    if(response.data.confidence > 0.8 && response.data.prediction === 'nonmangrove'){
+      response.data.status = 'rejected';
+    }
+    else if(response.data.confidence > 0.7 && response.data.prediction === 'mangrove'){
+      response.data.status = 'accepted';
+    }
+    else{
+      response.data.status = 'pending';
+    }
+    console.log('frompredictController:', response.data.status);
 
     return res.json(response.data);
   } catch (error) {
