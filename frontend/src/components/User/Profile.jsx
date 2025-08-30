@@ -1,11 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile, logout } from "../../actions/user";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 function Profile() {
   const dispatch = useDispatch();
   const { user, loading, error } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
-  if (!user) return <p className="p-4">Please login</p>;
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
+  if (!user) return null;
 
   return (
     <div className="p-4">

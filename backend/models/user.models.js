@@ -53,7 +53,7 @@ userSchema.methods.generateJWT = function () {
     throw new Error("JWT_SECRET not set in environment");
   }
   const payload = { id: this._id, role: this.role };
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" });
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
 };
 
 // Gamification helpers
