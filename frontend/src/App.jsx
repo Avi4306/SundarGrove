@@ -8,10 +8,12 @@ import Reports from "./components/Reports/Reports";
 import Homepage from "./components/Home/Homepage";
 import './App.css';
 import MangroveMap from "./components/map.jsx"
+import img1 from "./assets/SG-1.jpg"
+import img2 from "./assets/SG-2.jpg"
 
 const markers = [
-  { position: [23.0225, 72.5714], popup: "Ahmedabad" },
-  { position: [19.076, 72.8777], popup: "Mumbai" },
+  { position: [23.0225, 72.5714], popup: {place:'amd',threat:'cutting',image:img1} },
+  { position: [19.076, 72.8777], popup: {place:'mumbai',threat:'deforestation',image:img2} },
 ];
 
 import Leaderboard from "./components/Leaderboard/Leaderboard";

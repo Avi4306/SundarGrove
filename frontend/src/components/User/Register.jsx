@@ -22,13 +22,11 @@ function Register() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-100 to-blue-100">
+    <div className="relative min-h-screen flex flex-col items-center bg-gradient-to-br from-green-100 to-blue-100">
       <FloatingNavBar />
-      <div className="flex flex-col items-center min-h-screen bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center ">
-        <div>
-          <img src="./src/assets/SG-Logo.png" alt="SundarGrove" className="h-60" />
-        </div>
-        <div className="bg-[rgba(255,255,255,0.7)] shadow-md rounded-xl p-6 w-full max-w-md text-center pb-8">
+      <div className="min-h-screen w-full flex flex-col items-center bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center pb-20 ">
+        <img src="./src/assets/SG-Logo.png" alt="SundarGrove" className="h-60 " />
+        <div className="bg-[rgba(255,255,255,0.7)] shadow-md rounded-xl p-6 w-full max-w-md text-center ">
           <h2 className="text-3xl font-bold mb-4">Register</h2>
           <p className="mb-6 text-gray-700">Join SundarGrove and become a Guardian! Fill in your details below:</p>
           <form onSubmit={onSubmit} className="flex flex-col gap-4">
@@ -68,9 +66,9 @@ function Register() {
           </form>
           {error && <p className="text-red-500 mt-3 text-center">{error}</p>}
           {user && <p className="text-green-600 mt-3 text-center">Welcome {user.name || user.email}</p>}
-          <div className="mt-6 text-gray-600">
+          <div className="mt-6 text-gray-600 ">
             Already a user?{' '}
-            <Link to="/" className="text-green-600 font-semibold hover:underline">
+            <Link to="/" className="text-green-600 font-semibold hover:underline mt-0 mb-6">
               Sign In
             </Link>
           </div>
