@@ -1,6 +1,4 @@
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+ 
 import React, { useEffect, useRef, useState } from "react";
 import {
   MapContainer,
@@ -55,7 +53,9 @@ const MangroveMap = ({ geoJsonPath, markers = [], initialPosition = [23.0225, 72
   // GeoJSON state
   const [mangroveData, setMangroveData] = useState(null);
   const [loading, setLoading] = useState(true);
-
+ useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   // Fetch GeoJSON once
   useEffect(() => {
     setLoading(true);
