@@ -1,3 +1,4 @@
+import SG1 from "../assets/SG-1.jpg";
  
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -93,7 +94,7 @@ const MangroveMap = ({ geoJsonPath, markers = [], initialPosition = [23.0225, 72
 
   if (loading) {
     return (
-      <div className="relative min-h-screen flex flex-col items-center justify-center bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center">
+  <div className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center" style={{backgroundImage: `url(${SG1})`}}>
         <FloatingNavBar/>
         <div className="flex flex-col items-center justify-center h-full w-full px-4">
           <div className="text-xl sm:text-2xl text-green-700 font-bold animate-pulse mb-4 text-center">Loading map and data...</div>
@@ -104,7 +105,7 @@ const MangroveMap = ({ geoJsonPath, markers = [], initialPosition = [23.0225, 72
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center">
+  <div className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center" style={{backgroundImage: `url(${SG1})`}}>
       {/* Overlay for gradient and blur */}
       <FloatingNavBar/>
       <div className="relative m-1 sm:m-2 pt-8 sm:pt-12 inset-0"></div>

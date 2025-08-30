@@ -1,3 +1,5 @@
+
+import SG1 from "../../assets/SG-1.jpg";
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/SG-Logo.png";
 import FloatingNavBar from "./FloatingNavBar";
@@ -36,7 +38,7 @@ export default function Homepage() {
 
   return (
     <div 
-      className="relative flex flex-col items-center justify-center min-h-screen bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center overflow-hidden  px-4 sm:px-6"
+  className="relative flex flex-col items-center justify-center min-h-screen bg-cover bg-center overflow-hidden  px-4 sm:px-6" style={{backgroundImage: `url(${SG1})`}}
       onClick={createRipple}
     >
       {/* CSS Animations */}

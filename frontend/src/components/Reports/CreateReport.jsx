@@ -1,3 +1,6 @@
+
+import SG1 from "../../assets/SG-1.jpg";
+import SGLogo from "../../assets/SG-Logo.png";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import FloatingNavBar from "../Home/FloatingNavBar";
@@ -132,9 +135,9 @@ const [success, setSuccess] = useState("");
   return (
     <>
       <FloatingNavBar />
-      <div className="flex flex-col items-center min-h-screen bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center pb-7 px-4 sm:px-6">
+  <div className="flex flex-col items-center min-h-screen bg-cover bg-center pb-7 px-4 sm:px-6" style={{backgroundImage: `url(${SG1})`}}>
         <div className="mt-16 sm:mt-10 mb-6 sm:mb-8">
-          <img src="./src/assets/SG-Logo.png" alt="SundarGrove" className="h-40 sm:h-48 md:h-60" />
+          <img src={SGLogo} alt="SundarGrove" className="h-40 sm:h-48 md:h-60" />
         </div>
         <div className="bg-[rgba(255,255,255,0.7)] shadow-md rounded-xl p-4 sm:p-6 md:p-8 w-full max-w-sm sm:max-w-md lg:max-w-lg text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">Create Report</h2>
