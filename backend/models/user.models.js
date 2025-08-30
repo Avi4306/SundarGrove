@@ -24,15 +24,6 @@ const userSchema = new Schema({
   verifiedReports: { type: Number, default: 0 },
   reportedCount: { type: Number, default: 0 },
 
-  lastKnownLocation: {
-    type: {
-      type: String,
-      enum: ["Point"],
-      default: "Point"
-    },
-    coordinates: { type: [Number] }
-  },
-
   isActive: { type: Boolean, default: true }
 });
 
