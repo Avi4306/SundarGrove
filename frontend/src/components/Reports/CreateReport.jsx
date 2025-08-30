@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { uploadImage, createReport } from "../../api";
+import { uploadImage } from "../../api/index";
+import { useDispatch } from "react-redux";
+import { handleCreateReport } from "../../actions/report";
 
 function CreateReport() {
+  const dispatch = useDispatch();
   const typeOptions = [
     { value: "cutting", label: "Cutting" },
     { value: "dumping", label: "Dumping" },
@@ -67,14 +70,13 @@ function CreateReport() {
         });
         imageUrl = data.imageUrl;
       }
-
-      await createReport({
+      await dispatch(handleCreateReport({
         ...formData,
         imageUrl,
-      });
+      }));
 
       alert("Report submitted successfully!");
-      setFormData({ title: "", description: "" });
+      setFormData({ title: "", description: "", type: "cutting"});
       setImageFile(null);
       setPreview(null);
     } catch (err) {
