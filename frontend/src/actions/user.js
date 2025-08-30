@@ -2,7 +2,7 @@ import { registerUser, loginUser, getProfile } from "../api/index";
 import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL, LOGOUT } from "../constants/actionTypes";
 
 // Register
-export const handleRegister = (formData) => async (dispatch) => {
+export const handleRegister = (formData, navigate) => async (dispatch) => {
   dispatch({ type: AUTH_START });
   try {
     const { data } = await registerUser(formData);
@@ -14,7 +14,7 @@ export const handleRegister = (formData) => async (dispatch) => {
 };
 
 // Login
-export const handleLogin = (formData) => async (dispatch) => {
+export const handleLogin = (formData, navigate) => async (dispatch) => {
   dispatch({ type: AUTH_START });
   try {
     const { data } = await loginUser(formData);

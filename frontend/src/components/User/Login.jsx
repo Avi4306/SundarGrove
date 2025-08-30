@@ -1,29 +1,40 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogin } from "../../actions/user";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
-  const { user, loading, error } = useSelector((state) => state.auth);
+  const { loading, error, user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+console.log(user)
+  useEffect(() => {
+    if (user) {
+      navigate("/reports");
+    }
+  }, [user, navigate]);
 
-  const onSubmit = (e) => {
+  const onSignIn = (e) => {
     e.preventDefault();
     dispatch(handleLogin(form));
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-md rounded-xl p-6 w-full max-w-sm">
-        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-
-        <form onSubmit={onSubmit} className="space-y-4">
+    <div className="flex flex-col items-center min-h-screen bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center">
+      <div>
+        <img src="./src/assets/SG-Logo.png" alt="SundarGrove" className="h-60 " />
+      </div>
+      <div className="bg-[rgba(255,255,255,0.7)] shadow-md rounded-xl p-6 w-full max-w-md text-center">
+        <h1 className="text-3xl font-bold mb-4">Welcome Back, Guardian!</h1>
+        <p className="mb-6 text-gray-700">Sign in to access your dashboard and manage mangrove conservation activities.</p>
+        <form onSubmit={onSignIn} className="flex flex-col gap-4">
           <input
             type="email"
             placeholder="Email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="border p-2 w-full rounded"
+            className=" rounded-xl px-3 py-2 bg-[rgba(4,132,67,0.36)]"
             required
           />
           <input
@@ -31,20 +42,27 @@ function Login() {
             placeholder="Password"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="border p-2 w-full rounded"
+            className="rounded-xl px-3 py-2 bg-[rgba(4,132,67,0.36)] autofill:bg-[rgba(4,132,67,0.56)]"
             required
           />
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-green-600 text-white w-full py-2 rounded"
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-[rgba(32,87,50,0.75)] w-40 text-white px-4 py-2 rounded shadow-lg shadow-green-800/40 hover:bg-[rgba(32,87,50,0.75)] transition transform hover:scale-105 active:scale-95 active:shadow-inner border-b-4 border-green-900"
+            >
+              {loading ? "Signing In..." : "Sign In"}
+            </button>
+          </div>
         </form>
-
         {error && <p className="text-red-500 mt-3 text-center">{error}</p>}
         {user && <p className="text-green-600 mt-3 text-center">Welcome {user.name || user.email}</p>}
+        <div className="mt-6 text-gray-600">
+          New to SundarGrove?{' '}
+          <Link to="/register" className="text-blue-600 font-semibold hover:underline">
+            Register
+          </Link>
+        </div>
       </div>
     </div>
   );
