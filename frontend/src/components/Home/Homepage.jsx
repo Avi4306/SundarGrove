@@ -17,7 +17,7 @@ export default function Homepage() {
         <p className="text-lg text-gray-600 mb-6 text-center">
           Preserving Mangroves, Empowering Communities
         </p>
-        {/* Add more homepage content here, e.g. buttons, links, etc. */}
+        
       </div>
     </div>
   );

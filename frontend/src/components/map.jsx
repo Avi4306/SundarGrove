@@ -82,7 +82,14 @@ const MangroveMap = ({ geoJsonPath, markers = [], initialPosition = [23.0225, 72
         {/* Render markers passed via props */}
         {markers.map((marker, idx) => (
           <Marker key={idx} position={marker.position}>
-            {marker.popup && <Popup>{marker.popup}</Popup>}
+            {marker.popup && <Popup><div>
+      <strong>Place:</strong> {marker.popup.place}<br />
+      <strong>Threat:</strong> {marker.popup.threat}<br />
+      <strong>Image:</strong> {marker.popup.image}<br />
+      {marker.popup.image && (
+        <img src={marker.popup.image} alt="Reported" style={{ width: "100px", borderRadius: "8px" }} />
+      )}
+    </div></Popup>}
           </Marker>
         ))}
       </MapContainer>
