@@ -7,6 +7,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { useSelector } from "react-redux";
 import Reports from "./components/Reports/Reports";
 import './App.css';
+import MangroveMap from "./components/map.jsx"
+
+const markers = [
+  { position: [23.0225, 72.5714], popup: "Ahmedabad" },
+  { position: [19.076, 72.8777], popup: "Mumbai" },
+];
+
 function App() {
   const user = useSelector((state) => state.auth.user);
   return (
@@ -24,6 +31,12 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/map" element={
+          <div style={{ height: "100vh", width: "100vh" }}>
+            <MangroveMap geoJsonPath="/mangrove_india.geojson" markers={markers} />
+          </div>
+        }>
+        </Route>
       </Routes>
     </Router>
   );
