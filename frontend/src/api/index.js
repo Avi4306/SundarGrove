@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create an Axios instance with the backend base URL
 const api = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api`,
 });
 
 // Automatically attach token to every request if present
