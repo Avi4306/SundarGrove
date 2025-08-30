@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import logo from "../../assets/SG-Logo.png";
+import logo from "../../assets/LOGO.png";
+import { Link } from "react-router-dom";
 
 export default function FloatingNavBar() {
   const { user } = useSelector((state) => state.auth);
