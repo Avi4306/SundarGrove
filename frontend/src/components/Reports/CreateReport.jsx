@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FloatingNavBar from "../Home/FloatingNavBar";
 import { motion, AnimatePresence } from "framer-motion";
 import { uploadImage } from "../../api/index";
 import { useDispatch } from "react-redux";
@@ -88,9 +89,11 @@ function CreateReport() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center pb-7">
+    <>
+      <FloatingNavBar />
+      <div className="flex flex-col items-center min-h-screen bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center pb-7">
       <div>
-        <img src="./src/assets/SG-Logo.png" alt="SundarGrove" className="h-60 mb-8" />
+        <img src="./src/assets/SG-Logo.png" alt="SundarGrove" className="h-60 mt-10" />
       </div>
       <div className="bg-[rgba(255,255,255,0.7)] shadow-md rounded-xl p-6 w-full max-w-md text-center">
         <h2 className="text-3xl font-bold mb-4">Create Report</h2>
@@ -174,7 +177,8 @@ function CreateReport() {
           <p className="text-red-500 mt-3">{error}</p>
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 }
 

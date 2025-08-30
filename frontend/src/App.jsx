@@ -7,17 +7,22 @@ import { useSelector } from "react-redux";
 import Reports from "./components/Reports/Reports";
 import Homepage from "./components/Home/Homepage";
 import './App.css';
-import MangroveMap from "./components/map.jsx"
+import React, { lazy, Suspense } from "react";
+import SmsButton from './components/sms.jsx'; // Adjust the import path as needed
+const managerNumber = '+919876543210'; // Replace with the recipient number
+const dailyReport = 'System status: OK. All tasks completed.';
 import img1 from "./assets/SG-1.jpg"
 import img2 from "./assets/SG-2.jpg"
-import AdminDashboard from "./components/Admin/AdminManagement.jsx";
+const MangroveMap = lazy(() => import("./components/map.jsx"));import AdminDashboard from "./components/Admin/AdminManagement.jsx";
 import ManageUsers from "./components/Admin/ManageUsers.jsx";
 import ModerateReports from "./components/Admin/ModerateReports.jsx";
 import Leaderboard from "./components/Leaderboard/Leaderboard";
 
 const markers = [
-  { position: [23.0225, 72.5714], popup: {place:'amd',threat:'cutting',image:img1} },
-  { position: [19.076, 72.8777], popup: {place:'mumbai',threat:'deforestation',image:img2} },
+  { position: [23.0225, 72.5714], status: 'pending', popup: {place:'amd',threat:'cutting',image:img1} },
+  { position: [19.076, 72.8777], status: 'confirmed', popup: {place:'mumbai',threat:'deforestation',image:img2} },
+  { position: [22.5726, 88.3639], status: 'flagged', popup: {place:'kolkata',threat:'false report',image:null} },
+  { position: [15.2993, 74.1240], status: 'pending', popup: {place:'goa',threat:'dumping',image:null} },
 ];
 
 function App() {
@@ -46,9 +51,11 @@ function App() {
         element={<Leaderboard />}
   />
        <Route path="/map" element={
-          <div style={{ height: "100vh", width: "100vh" }}>
-            <MangroveMap geoJsonPath="/mangrove_india.geojson" markers={markers} />
-          </div>
+          <Suspense fallback={<div className="text-center py-20 text-lg text-green-700">Loading map...</div>}>
+            <div style={{ height: "auto", width: "auto" }}>
+              <MangroveMap geoJsonPath="/mangrove_india.geojson" markers={markers} />
+            </div>
+          </Suspense>
         }></Route>
 
       <Route element={<ProtectedRoute role="admin" />}>
