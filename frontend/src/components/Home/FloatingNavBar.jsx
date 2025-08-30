@@ -15,6 +15,9 @@ export default function FloatingNavBar() {
       <Link to="/reports" className="text-green-700 font-semibold hover:text-blue-600 transition">
         Reports
       </Link>
+      <Link to="/leaderboard" className="text-green-700 font-semibold hover:text-blue-600 transition">
+        Leaderboard
+      </Link>
 
       {user ? (
         <Link to="/profile" className="text-green-700 font-semibold hover:text-blue-600 transition">

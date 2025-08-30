@@ -8,6 +8,7 @@ import {connectDB} from './config/db.js';
 import userRouter from "./routes/userRoutes.js";
 import reportRouter from "./routes/reportRoutes.js";
 import LeaderboardRouter from "./routes/leaderboardRoutes.js";
+import adminRouter from "./routes/adminRoutes.js";
 
 const app = express();
 app.use(express.json({ limit: "10mb" }));
@@ -17,6 +18,8 @@ app.use('/api', userRouter);
 app.post('/api/upload', uploadImageToCloudinary);
 app.use('/api', reportRouter)
 app.use('/api', LeaderboardRouter)
+app.use('/api/admin', adminRouter)
+
 
 
 const PORT = process.env.PORT || 3000;

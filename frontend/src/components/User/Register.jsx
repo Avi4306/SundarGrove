@@ -12,7 +12,7 @@ function Register() {
 
   useEffect(() => {
     if (success && user) {
-      navigate("/reports");
+      navigate("/");
     }
   }, [success, user, navigate]);
 

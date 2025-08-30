@@ -10,7 +10,7 @@ function Login() {
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
-      navigate("/reports");
+      navigate("/");
     }
   }, [user, navigate]);
 
