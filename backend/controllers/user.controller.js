@@ -35,6 +35,9 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+export const home= async (req,res) => {
+  res.send("Hey we are live")
+}
 
 // Get current user profile
 export const getProfile = async (req, res) => {
