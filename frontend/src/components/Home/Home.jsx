@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogin } from "../../actions/user";
+import FloatingNavBar from "./FloatingNavBar";
 
 function Home() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -14,7 +15,8 @@ function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center">
+    <div className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-100 to-blue-100">
+      <FloatingNavBar />
       Home
     </div>
   );

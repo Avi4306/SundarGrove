@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/SG-Logo.png";
+import logo from "../../assets/LOGO.png";
 
 export default function FloatingNavBar() {
   return (
