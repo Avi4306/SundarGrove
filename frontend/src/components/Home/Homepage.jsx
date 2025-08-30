@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "../../assets/SG-Logo.png";
 import FloatingNavBar from "./FloatingNavBar";
-
 export default function Homepage() {
   const [ripples, setRipples] = useState([]);
   const [leaves, setLeaves] = useState([]);

@@ -7,7 +7,7 @@ import {
 } from "../constants/actionTypes";
 
 // Create new report
-export const handleCreateReport = async (dispatch, reportData) => {
+export const handleCreateReport = (reportData) => async (dispatch) => {
   dispatch({ type: REPORT_START });
   try {
     const { data } = await createReport(reportData);

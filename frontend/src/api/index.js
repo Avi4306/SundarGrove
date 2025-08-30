@@ -28,5 +28,5 @@ export const createReport = (reportData) => api.post("/reports", reportData);
 export const getReports = () => api.get("/reports");
 
 // --- Upload route ---
-export const uploadImage = (fileData, folderName) =>
+export const uploadImage = ({fileData, folderName}) =>
   api.post("/upload", { fileData, folderName });

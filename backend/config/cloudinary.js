@@ -1,7 +1,9 @@
 import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv';
 
-dotenv.config(); //Because in index.js, this file loads, before dotenv.config
+
+dotenv.config();
+console.log('Cloudinary config:', process.env.CLOUDINARY_CLOUD_NAME, process.env.CLOUDINARY_API_KEY);
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

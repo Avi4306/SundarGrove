@@ -27,10 +27,6 @@ const userSchema = new Schema({
   isActive: { type: Boolean, default: true }
 });
 
-// Indexes
-userSchema.index({ email: 1 }, { unique: true, sparse: true });
-userSchema.index({ lastKnownLocation: "2dsphere" });
-
 // Pre-save hash
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
