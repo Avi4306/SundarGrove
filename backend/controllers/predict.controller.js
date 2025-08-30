@@ -1,27 +1,31 @@
+import multer from 'multer';
 import axios from 'axios';
 import FormData from 'form-data';
 
-// Controller to proxy image upload to Flask backend
+// Multer memory storage to hold file buffer in memory (no disk storage)
+const storage = multer.memoryStorage();
+export const upload = multer({ storage });
+
 export const predictMangrove = async (req, res) => {
   try {
-    // Check if image file is present
-    console.log(req.files);
-    if (!req.files || !req.files.image) {
+    if (!req.file) {
       return res.status(400).json({ error: 'No image uploaded' });
     }
 
-    const image = req.files.image;
-
-    // Prepare form data for Flask
     const formData = new FormData();
-    formData.append('image', image.data, image.name);
-
-    // Send POST request to Flask backend
-    const response = await axios.post('http://127.0.0.1:5000/predict', formData, {
-      headers: formData.getHeaders(),
+    // Append file buffer with original filename and mimetype
+    formData.append('image', req.file.buffer, {
+      filename: req.file.originalname,
+      contentType: req.file.mimetype,
     });
 
-    // Return Flask response to frontend
+    // Post to Flask backend
+    const response = await axios.post('http://127.0.0.1:5000/predict', formData, {
+      headers: formData.getHeaders(), // Proper multipart headers
+      maxContentLength: Infinity,
+      maxBodyLength: Infinity,
+    });
+
     return res.json(response.data);
   } catch (error) {
     console.error('Prediction error:', error.message);
