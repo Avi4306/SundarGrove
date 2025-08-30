@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handleRegister } from "../../../actions/user";
+import { handleRegister } from "../../actions/user";
 
 function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });

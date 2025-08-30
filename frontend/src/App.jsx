@@ -4,14 +4,18 @@ import Register from "./components/User/Register";
 import Profile from "./components/User/Profile";
 import Home from "./components/Home/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { useSelector } from "react-redux";
+import Reports from "./components/Reports/Reports";
 
 function App() {
+  const user = useSelector((state) => state.auth.user);
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/report" element={<Reports />} />
         <Route
           path="/profile"
           element={

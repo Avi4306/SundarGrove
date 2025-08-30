@@ -17,7 +17,7 @@ const userSchema = new Schema({
   password: { type: String },
   provider: { type: String, enum: ["local", "google", "github"], default: "local" },
   providerId: { type: String },
-  role: { type: String, enum: ["guardian", "authority", "admin"], default: "guardian" },
+  role: { type: String, enum: ["guardian", "admin"], default: "guardian" },
 
   points: { type: Number, default: 0 },
   badges: { type: [badgeSchema], default: [] },

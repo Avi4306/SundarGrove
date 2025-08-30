@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handleLogin } from "../../../actions/user";
+import { handleLogin } from "../../actions/user";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });

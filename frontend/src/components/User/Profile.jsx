@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProfile, logout } from "../../../actions/user";
+import { fetchProfile, logout } from "../../actions/user";
 
 function Profile() {
   const dispatch = useDispatch();
