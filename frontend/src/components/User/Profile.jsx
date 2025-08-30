@@ -1,10 +1,10 @@
+
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/user";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FloatingNavBar from "../Home/FloatingNavBar";
 import { motion } from "framer-motion";
-
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
@@ -18,7 +18,9 @@ function Profile() {
   const dispatch = useDispatch();
   const { user, loading, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     if (!user && !loading) {
       navigate("/login");

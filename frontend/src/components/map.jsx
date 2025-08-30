@@ -1,3 +1,6 @@
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 import React, { useEffect, useRef, useState } from "react";
 import {
   MapContainer,

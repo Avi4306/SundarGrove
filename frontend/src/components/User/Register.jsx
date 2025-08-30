@@ -1,15 +1,18 @@
+
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleRegister } from "../../actions/user";
 import { Link, useNavigate } from "react-router-dom";
-
+  
 function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [passwordError, setPasswordError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, loading, error, success } = useSelector((state) => state.auth);
-
+useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     if (success && user) {
       navigate("/");
