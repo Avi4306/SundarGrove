@@ -8,13 +8,13 @@ function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, loading, error } = useSelector((state) => state.auth);
+  const { user, loading, error, success } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (user) {
+    if (success && user) {
       navigate("/reports");
     }
-  }, [user, navigate]);
+  }, [success, user, navigate]);
 
   const onSubmit = (e) => {
     e.preventDefault();
