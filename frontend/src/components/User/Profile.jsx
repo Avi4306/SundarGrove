@@ -2,15 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile, logout } from "../../actions/user";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useState } from "react";
 
 function Profile() {
   const dispatch = useDispatch();
-  const { user, loading, error } = useSelector((state) => state.auth);
+  const {  loading, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-
+  user, setUser = useState(null);
   useEffect(() => {
-    if (!user) {
+    if (!user.current) {
       navigate("/login");
     }
   }, [user, navigate]);

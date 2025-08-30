@@ -7,13 +7,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { useSelector } from "react-redux";
 import Reports from "./components/Reports/Reports";
 import './App.css';
+import Leaderboard from "./components/Leaderboard/Leaderboard";
 function App() {
+
   return (
     <Routes>
       <Route path="/" element={
-        <ProtectedRoute>
         <Home />
-        </ProtectedRoute>
       } />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -21,9 +21,7 @@ function App() {
       <Route
         path="/reports"
         element={
-          <ProtectedRoute>
             <Reports />
-          </ProtectedRoute>
         }
       />
       <Route
@@ -34,6 +32,10 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/leaderboard"
+        element={<Leaderboard />}
+  />
       
       <Route path="*" element={
         <div style={{ textAlign: 'center', padding: '50px', color: '#78716c' }}>
