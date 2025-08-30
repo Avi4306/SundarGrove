@@ -3,11 +3,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { uploadImageToCloudinary } from './controllers/upload.controller.js';
 
+
 dotenv.config();
 import {connectDB} from './config/db.js';
 import userRouter from "./routes/userRoutes.js";
 import reportRouter from "./routes/reportRoutes.js";
 import LeaderboardRouter from "./routes/leaderboardRoutes.js";
+
 
 const app = express();
 app.use(express.json());
@@ -16,6 +18,11 @@ app.use('/api', userRouter);
 app.post('/api/upload', uploadImageToCloudinary);
 app.use('/api', reportRouter)
 app.use('/api', LeaderboardRouter)
+
+
+
+
+app.post('/api/predict', predictMangrove);
 
 
 const PORT = process.env.PORT || 3000;

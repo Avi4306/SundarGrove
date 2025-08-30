@@ -9,6 +9,7 @@ import Reports from "./components/Reports/Reports";
 import Homepage from "./components/Home/Homepage";
 import './App.css';
 import MangroveMap from "./components/map.jsx"
+import MangrovePredictor from "./components/form.jsx"
 
 const markers = [
   { position: [23.0225, 72.5714], popup: "Ahmedabad" },
@@ -25,7 +26,7 @@ function App() {
       } />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      
+      <Route path="/api/predict" element={<MangrovePredictor/>}/>
       <Route
         path="/reports"
         element={
