@@ -8,7 +8,6 @@ function Login() {
   const dispatch = useDispatch();
   const { loading, error, user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-console.log(user)
   useEffect(() => {
     if (user) {
       navigate("/reports");

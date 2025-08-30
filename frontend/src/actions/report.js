@@ -1,4 +1,4 @@
-import { createReport, getReports } from "../api";
+import { createReport, getReports } from "../api/index";
 import {
   REPORT_START,
   REPORT_SUCCESS,

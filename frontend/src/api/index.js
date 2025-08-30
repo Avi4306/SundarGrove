@@ -21,6 +21,7 @@ api.interceptors.request.use(
 export const registerUser = (formData) => api.post("/register", formData);
 export const loginUser = (formData) => api.post("/login", formData);
 export const getProfile = () => api.get("/profile");
+export const getTopUsers = () => api.get("/leaderboard");
 
 // --- Reports routes ---
 export const createReport = (reportData) => api.post("/reports", reportData);

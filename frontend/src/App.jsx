@@ -15,13 +15,13 @@ const markers = [
   { position: [19.076, 72.8777], popup: "Mumbai" },
 ];
 
+import Leaderboard from "./components/Leaderboard/Leaderboard";
 function App() {
+
   return (
     <Routes>
       <Route path="/" element={
-        <ProtectedRoute>
         <Home />
-        </ProtectedRoute>
       } />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -29,9 +29,7 @@ function App() {
       <Route
         path="/reports"
         element={
-          <ProtectedRoute>
             <Reports />
-          </ProtectedRoute>
         }
       />
       <Route
@@ -42,6 +40,10 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/leaderboard"
+        element={<Leaderboard />}
+  />
        <Route path="/map" element={
           <div style={{ height: "100vh", width: "100vh" }}>
             <MangroveMap geoJsonPath="/mangrove_india.geojson" markers={markers} />
