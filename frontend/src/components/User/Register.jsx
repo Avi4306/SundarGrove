@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handleRegister } from "../../actions/user";
+import { handleRegister } from "../../../actions/user";
+import { Link } from "react-router-dom";
 
 function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -13,17 +14,20 @@ function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-md rounded-xl p-6 w-full max-w-sm">
-        <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
-
-        <form onSubmit={onSubmit} className="space-y-4">
+    <div className="flex flex-col items-center min-h-screen bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center ">
+      <div>
+        <img src="./src/assets/SG-Logo.png" alt="SundarGrove" className="h-60" />
+      </div>
+      <div className="bg-[rgba(255,255,255,0.7)] shadow-md rounded-xl p-6 w-full max-w-md text-center pb-8">
+        <h2 className="text-3xl font-bold mb-4">Register</h2>
+        <p className="mb-6 text-gray-700">Join SundarGrove and become a Guardian! Fill in your details below:</p>
+        <form onSubmit={onSubmit} className="flex flex-col gap-4">
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Full Name"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="border p-2 w-full rounded"
+            className="rounded-xl px-3 py-2 bg-[rgba(4,132,67,0.36)]"
             required
           />
           <input
@@ -31,7 +35,7 @@ function Register() {
             placeholder="Email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="border p-2 w-full rounded"
+            className="rounded-xl px-3 py-2 bg-[rgba(4,132,67,0.36)]"
             required
           />
           <input
@@ -39,20 +43,27 @@ function Register() {
             placeholder="Password"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="border p-2 w-full rounded"
+            className="rounded-xl px-3 py-2 bg-[rgba(4,132,67,0.36)]"
             required
           />
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-blue-600 text-white w-full py-2 rounded"
-          >
-            {loading ? "Registering..." : "Register"}
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-[rgba(32,87,50,0.75)] w-40 text-white px-4 py-2 rounded shadow-lg shadow-green-800/40 hover:bg-[rgba(32,87,50,0.55)] transition transform hover:scale-105 active:scale-95 active:shadow-inner border-b-4 border-green-900"
+            >
+              {loading ? "Registering..." : "Register"}
+            </button>
+          </div>
         </form>
-
         {error && <p className="text-red-500 mt-3 text-center">{error}</p>}
         {user && <p className="text-green-600 mt-3 text-center">Welcome {user.name || user.email}</p>}
+        <div className="mt-6 text-gray-600">
+          Already a user?{' '}
+          <Link to="/" className="text-green-600 font-semibold hover:underline">
+            Sign In
+          </Link>
+        </div>
       </div>
     </div>
   );

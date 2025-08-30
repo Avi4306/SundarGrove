@@ -6,7 +6,7 @@ import Home from "./components/Home/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useSelector } from "react-redux";
 import Reports from "./components/Reports/Reports";
-
+import './App.css';
 function App() {
   const user = useSelector((state) => state.auth.user);
   return (
