@@ -16,6 +16,9 @@ const ecoColors = {
 };
 
 const Leaderboard = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const dispatch = useDispatch();
   const { users, loading, error } = useSelector((state) => state.topUsers);
   const { user: currentUser } = useSelector((state) => state.auth || {});

@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleLogin } from "../../actions/user";
 
 function Login() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [form, setForm] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
   const { loading, error, user } = useSelector((state) => state.auth);

@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { useState } from "react";
 import FloatingNavBar from "../Home/FloatingNavBar";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,6 +7,29 @@ import { useDispatch } from "react-redux";
 import { handleCreateReport } from "../../actions/report";
 
 function CreateReport() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+const [formData, setFormData] = useState({
+  title: "",
+  description: "",
+  type: "cutting",
+});
+const [isOther, setIsOther] = useState(false);
+const [imageFile, setImageFile] = useState(null);
+const [preview, setPreview] = useState(null);
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState("");
+const [success, setSuccess] = useState("");
+
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => setSuccess("") , 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [success]);
   const dispatch = useDispatch();
   const typeOptions = [
     { value: "cutting", label: "Cutting" },
@@ -14,17 +38,8 @@ function CreateReport() {
     { value: "land reclamation", label: "Land Reclamation" },
     { value: "others", label: "Others" },
   ];
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    type: "cutting",
-  });
-  const [isOther, setIsOther] = useState(false);
-  const [imageFile, setImageFile] = useState(null);
-  const [preview, setPreview] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  
+  // ...existing code...
 
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -76,7 +91,7 @@ function CreateReport() {
         imageUrl,
       }));
 
-      alert("Report submitted successfully!");
+      setSuccess("Report submitted successfully!");
       setFormData({ title: "", description: "", type: "cutting"});
       setImageFile(null);
       setPreview(null);
@@ -86,6 +101,7 @@ function CreateReport() {
     } finally {
       setLoading(false);
     }
+  // Success alert will remain visible until next submission
   };
 
   return (
@@ -173,6 +189,19 @@ function CreateReport() {
             </div>
           </form>
         </div>
+        <AnimatePresence>
+          {success && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="fixed top-6 left-1/2 transform -translate-x-1/2 bg-green-100 border border-green-400 text-green-800 px-6 py-3 rounded-xl shadow-lg z-50 text-base font-semibold flex items-center gap-2"
+            >
+              <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
+              {success}
+            </motion.div>
+          )}
+        </AnimatePresence>
         {error && (
           <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg text-center mt-4">
             <p className="text-red-500 text-sm sm:text-base">{error}</p>

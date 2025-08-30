@@ -3,6 +3,9 @@ import logo from "../../assets/SG-Logo.png";
 import FloatingNavBar from "./FloatingNavBar";
 
 export default function Homepage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [ripples, setRipples] = useState([]);
   const [leaves, setLeaves] = useState([]);
 
