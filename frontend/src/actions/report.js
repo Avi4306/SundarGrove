@@ -10,6 +10,7 @@ import {
 export const handleCreateReport = (reportData) => async (dispatch) => {
   dispatch({ type: REPORT_START });
   try {
+    console.log("from report.js:", reportData); // Debugging line
     const { data } = await createReport(reportData);
     dispatch({ type: REPORT_SUCCESS, payload: data });
   } catch (err) {

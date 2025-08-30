@@ -8,7 +8,7 @@ export const handlePrediction = (file) => async (dispatch) => {
     formData.append("image", file);
 
     const { data } = await predictMangrove(formData);
-
+    console.log("Prediction data from predict,js:", data); // Debugging line
     dispatch({ type: PREDICT_SUCCESS, payload: data });
     return data;
   } catch (err) {

@@ -35,6 +35,8 @@ export const predictMangrove = async (req, res) => {
     else{
       response.data.status = 'pending';
     }
+    console.log('frompredictController:', response.data.status);
+
     return res.json(response.data);
   } catch (error) {
     console.error('Prediction error:', error.message);

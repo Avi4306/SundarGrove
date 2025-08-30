@@ -3,16 +3,12 @@ import { useState } from "react";
 import FloatingNavBar from "../Home/FloatingNavBar";
 import { motion, AnimatePresence } from "framer-motion";
 import { uploadImage } from "../../api/index";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux"; // Removed useSelector
 import { handleCreateReport } from "../../actions/report";
-import { handlePrediction } from "../../actions/predict";
-import { set } from "mongoose";
+import { handlePrediction } from "../../actions/predict"; // Assuming handlePrediction returns the prediction result
 
 function CreateReport() {
   const dispatch = useDispatch();
-  const { loading: predicting, result: prediction } = useSelector(
-    (state) => state.predict || {}
-  );
 
   const typeOptions = [
     { value: "cutting", label: "Cutting" },
@@ -29,7 +25,6 @@ function CreateReport() {
     type: "cutting",
     location: "", // new field for prediction
   });
-  const [status, setStatus] = useState("");
   const [isOther, setIsOther] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -59,27 +54,13 @@ function CreateReport() {
     setIsDropdownOpen(false);
   };
 
-  const handleFileChange = async (e) => {
+  const handleFileChange = (e) => {
     const file = e.target.files[0];
     setImageFile(file);
-    setPreview(URL.createObjectURL(file));
-
     if (file) {
-      try {
-        const prediction = await dispatch(handlePrediction(file));
-        const status = prediction?.status || 'pending';
-        console.log("Prediction received in component:", status);
-        setStatus(status);
-        if (prediction?.type) {
-          setFormData((prev) => ({ ...prev, type: prediction.type }));
-        }
-        if (prediction?.location) {
-          setFormData((prev) => ({ ...prev, location: prediction.location }));
-        }
-      } catch (err) {
-        console.error("Prediction failed", err);
-      }
+      setPreview(URL.createObjectURL(file));
     }
+    // We will now handle prediction logic inside handleSubmit
   };
 
   const handleSubmit = async (e) => {
@@ -89,20 +70,38 @@ function CreateReport() {
 
     try {
       let imageUrl = "";
+      let finalStatus = "pending";
+      let finalType = formData.type;
+      let finalLocation = formData.location;
 
       if (imageFile) {
+        // Step 1: Upload the image to Cloudinary
         const base64 = await convertToBase64(imageFile);
         const { data } = await uploadImage({
           fileData: base64,
           folderName: "reports",
         });
         imageUrl = data.imageUrl;
+
+        // Step 2: Get the prediction from the API
+        const predictionResult = await dispatch(handlePrediction(imageFile));
+
+        // Step 3: Use the prediction result directly
+        if (predictionResult && predictionResult.status) {
+          finalStatus = predictionResult.status;
+          finalType = predictionResult.type || formData.type;
+          finalLocation = predictionResult.location || formData.location;
+        }
       }
 
+      // Step 4: Create the report with all collected data
       await dispatch(
         handleCreateReport({
           ...formData,
-          imageUrl, status
+          imageUrl,
+          status: finalStatus,
+          type: finalType,
+          location: finalLocation,
         })
       );
 
