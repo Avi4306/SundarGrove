@@ -38,6 +38,21 @@ function AdminDashboard() {
           <h3 className="text-xl font-semibold">Verified Content</h3>
           <p className="text-4xl mt-2">{allRequests.filter(r => r.status === "accepted").length}</p>
         </div>
+        {/* Navigation to other admin pages */}
+        <nav className="flex flex-wrap gap-4 justify-center">
+          <Link
+            to="/admin/users"
+            className="bg-blue-500 text-white px-6 py-3 rounded-xl font-bold shadow hover:bg-blue-600 transition-all duration-200 hover:scale-105"
+          >
+            Manage Users
+          </Link>
+          <Link
+            to="/admin/reports"
+            className="bg-green-500 text-white px-6 py-3 rounded-xl font-bold shadow hover:bg-green-600 transition-all duration-200 hover:scale-105"
+          >
+            Manage Reports
+          </Link>
+        </nav>
       </div>
       <nav className="mt-8 flex gap-4">
         <Link
