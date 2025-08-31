@@ -1,5 +1,6 @@
 import Report from "../models/report.models.js";
 import User from '../models/user.models.js';
+import axios from '../utils/axios.js';
 
 export const createReport = async (req, res) => {
   try {
@@ -28,6 +29,34 @@ export const createReport = async (req, res) => {
 
     // Update user stats
     await User.findByIdAndUpdate(req.user.id, update);
+
+    // Fetch user phone
+    const user = await User.findById(req.user.id);
+    const userPhone = user?.phone;
+
+    // Decide SMS message based on status
+    let smsBody = '';
+    if (status === 'pending') {
+      smsBody = 'Your report has been received will be verified by authorities.';
+    } else if (status === 'verified') {
+      smsBody = 'Your report has been verified! Thank you for your contribution.';
+    } else if (status === 'rejected') {
+      smsBody = 'Your report was rejected. Please contact the Authorities for more information.';
+    }
+
+    // Send SMS if phone and message exist
+    if (userPhone && smsBody) {
+      try {
+        await axios.post('http://localhost:3001/send-sms', {
+          to: userPhone,
+          body: smsBody
+        });
+        console.log('SMS sent to', userPhone);
+      } catch (smsErr) {
+        console.error('Failed to send SMS:', smsErr.message);
+      }
+    }
+
     res.status(201).json(newReport);
   } catch (error) {
     console.error("Error creating report:", error);

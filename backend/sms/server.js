@@ -1,9 +1,9 @@
 // server.js
 
 // 1. Load dependencies
-const express = require('express');
-const twilio = require('twilio');
-require('dotenv').config(); // Loads credentials from .env file
+import express from 'express';
+import twilio from 'twilio';
+import 'dotenv/config';
 
 // 2. Get credentials from environment variables
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
