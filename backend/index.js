@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+dotenv.config();
 import fs from 'fs';
 import path from 'path';
 import * as turf from '@turf/turf';
@@ -14,7 +15,6 @@ import reportRouter from './routes/reportRoutes.js';
 import LeaderboardRouter from './routes/leaderboardRoutes.js';
 import adminRouter from "./routes/adminRoutes.js";
 
-dotenv.config();
 const app = express();
 
 app.use(express.json({ limit: '10mb' }));
