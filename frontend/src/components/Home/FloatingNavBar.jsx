@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import logo from "../../assets/LOGO.png";
@@ -40,6 +39,11 @@ export default function FloatingNavBar() {
                 </div>
               )}
             </div>
+            {user && user.role === "admin" && (
+              <Link to="/admin" className="text-green-700 font-semibold hover:text-blue-600 transition text-sm lg:text-base">
+                Admin
+              </Link>
+            )}
             {user ? (
               <Link to="/profile" className="text-green-700 font-semibold hover:text-blue-600 transition text-sm lg:text-base">
                 Profile
@@ -93,6 +97,15 @@ export default function FloatingNavBar() {
             >
               Map
             </Link>
+            {user && user.role === "admin" && (
+              <Link 
+                to="/admin" 
+                className="text-green-700 font-semibold hover:text-blue-600 transition text-center py-2 rounded-lg hover:bg-green-50"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Admin
+              </Link>
+            )}
             {user ? (
               <Link 
                 to="/profile" 

@@ -10,6 +10,8 @@ import {
   FETCH_REPORTS_FAILURE,
   VERIFY_REPORT_SUCCESS,
   REJECT_REPORT_SUCCESS,
+  SET_USER_COUNT,
+  SET_ALL_REQUESTS
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -17,6 +19,8 @@ const initialState = {
   reports: [],
   loading: false,
   error: null,
+  userCount : 0,
+  allRequests: [],
 };
 
 function admin(state = initialState, action) {
@@ -70,6 +74,10 @@ function admin(state = initialState, action) {
         loading: false,
         error: payload,
       };
+    case SET_USER_COUNT:
+      return { ...state, userCount: action.payload };
+    case SET_ALL_REQUESTS:
+      return { ...state, allRequests: action.payload };
     default:
       return state;
   }

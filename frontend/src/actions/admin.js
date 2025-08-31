@@ -19,6 +19,8 @@ import {
   REJECT_REPORT_REQUEST,
   REJECT_REPORT_SUCCESS,
   REJECT_REPORT_FAILURE,
+  SET_USER_COUNT,
+  SET_ALL_REQUESTS
 } from '../constants/actionTypes';
 
 // Fetch all users
@@ -102,5 +104,23 @@ export const rejectReport = (reportId) => async (dispatch) => {
       type: REJECT_REPORT_FAILURE,
       payload: err.response?.data?.message || err.message,
     });
+  }
+};
+
+export const fetchUserCount = () => async (dispatch) => {
+  try {
+    const { data } = await api.getUserCount();
+    dispatch({ type: SET_USER_COUNT, payload: data.count });
+  } catch (error) {
+    console.error("Failed to fetch user count:", error);
+  }
+};
+
+export const fetchAllRequests = () => async (dispatch) => {
+  try {
+    const { data } = await api.getAllRequests();
+    dispatch({ type: SET_ALL_REQUESTS, payload: data });
+  } catch (error) {
+    console.error("Failed to fetch all requests:", error);
   }
 };
