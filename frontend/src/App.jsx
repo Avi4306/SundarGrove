@@ -3,11 +3,11 @@ import Login from "./components/User/Login";
 import Register from "./components/User/Register";
 import Profile from "./components/User/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Reports from "./components/Reports/Reports";
 import Homepage from "./components/Home/Homepage";
 import './App.css';
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import SmsButton from './components/sms.jsx';
 const managerNumber = '+919876543210';
 const dailyReport = 'System status: OK. All tasks completed.';
@@ -17,16 +17,26 @@ const MangroveMap = lazy(() => import("./components/map.jsx"));import AdminDashb
 import ManageUsers from "./components/Admin/ManageUsers.jsx";
 import ModerateReports from "./components/Admin/ModerateReports.jsx";
 import Leaderboard from "./components/Leaderboard/Leaderboard";
-
-const markers = [
-  { position: [23.0225, 72.5714], status: 'pending', popup: {place:'amd',threat:'cutting',image:img1} },
-  { position: [19.076, 72.8777], status: 'confirmed', popup: {place:'mumbai',threat:'deforestation',image:img2} },
-  { position: [22.5726, 88.3639], status: 'flagged', popup: {place:'kolkata',threat:'false report',image:null} },
-  { position: [15.2993, 74.1240], status: 'pending', popup: {place:'goa',threat:'dumping',image:null} },
-];
+import { fetchAllRequests } from "./actions/admin.js";
 
 function App() {
-
+  const dispatch = useDispatch()
+  const allRequests = useSelector(state => state.admin.allRequests || []);
+  useEffect(() => {
+    dispatch(fetchAllRequests());
+  }, [dispatch]);
+  const reportMarkers = allRequests
+     .filter(r => r.location && r.location.coordinates && r.location.coordinates.length === 2)
+     .map(r => ({
+       position: [r.location.coordinates[1], r.location.coordinates[0]], // [lat, lng]
+       status: r.status,
+       popup: {
+         place: r.location.place || "Unknown",
+         threat: r.type || "Unknown",
+         image: r.imageUrl || null
+       }
+     }));
+  
   return (
     <Routes>
       <Route path="/" element={
@@ -53,7 +63,7 @@ function App() {
        <Route path="/map" element={
           <Suspense fallback={<div className="text-center py-20 text-lg text-green-700">Loading map...</div>}>
             <div style={{ height: "auto", width: "auto" }}>
-              <MangroveMap geoJsonPath="/mangrove_india.geojson" markers={markers} />
+              <MangroveMap geoJsonPath="/mangrove_india.geojson" markers={reportMarkers} />
             </div>
           </Suspense>
         }></Route>
