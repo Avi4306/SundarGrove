@@ -44,10 +44,10 @@ function ManageUsers() {
               <td className="px-6 py-4 whitespace-nowrap">{user.role}</td>
               <td className="px-6 py-4 whitespace-nowrap space-x-2">
                 <button
-                  onClick={() => handleChangeRole(user._id, user.role === 'user' ? 'admin' : 'user')}
+                  onClick={() => handleChangeRole(user._id, user.role === 'guardian' ? 'admin' : 'guardian')}
                   className="bg-green-500 text-white px-3 py-1 rounded"
                 >
-                  {user.role === 'Guardian' ? 'Make Admin' : 'Make Guardian'}
+                  {user.role === 'guardian' ? 'Make Admin' : 'Make Guardian'}
                 </button>
                 <button
                   onClick={() => handleDelete(user._id)}

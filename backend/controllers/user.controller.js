@@ -3,13 +3,13 @@ import User from "../models/user.models.js";
 // Register new user
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, phone } = req.body;
     if (!email || !password) return res.status(400).json({ message: "Email & password required" });
 
     const exists = await User.findOne({ email });
     if (exists) return res.status(409).json({ message: "User already exists" });
 
-    const user = new User({ name, email, password, provider: "local" });
+    const user = new User({ name, email, password, phone, provider: "local" });
     await user.save();
 
     const token = user.generateJWT();

@@ -15,6 +15,7 @@ const userSchema = new Schema({
   name: { type: String, trim: true },
   email: { type: String, lowercase: true, trim: true, unique: true, sparse: true },
   password: { type: String },
+  phone: { type: String, trim: true },
   provider: { type: String, enum: ["local", "google"], default: "local" },
   providerId: { type: String },
   role: { type: String, enum: ["guardian", "admin"], default: "guardian" },

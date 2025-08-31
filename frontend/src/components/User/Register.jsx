@@ -7,13 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleRegister } from "../../actions/user";
 import { Link, useNavigate } from "react-router-dom";
   
+// ...existing imports...
 function Register() {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", phone: "" }); // <-- add phone
   const [passwordError, setPasswordError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, loading, error, success } = useSelector((state) => state.auth);
-useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   useEffect(() => {
@@ -46,9 +47,9 @@ useEffect(() => {
   };
 
   return (
-  <div className="flex flex-col items-center min-h-screen bg-cover bg-center px-4 sm:px-6" style={{backgroundImage: `url(${SG1})`}}>
+    <div className="flex flex-col items-center min-h-screen bg-cover bg-center px-4 sm:px-6" style={{backgroundImage: `url(${SG1})`}}>
       <div className="mt-4 relative sm:mt-6 mb-6 sm:mb-4">
-  <img src={SGLogo} alt="SundarGrove" className="h-40 sm:h-48 md:h-60" />
+        <img src={SGLogo} alt="SundarGrove" className="h-40 sm:h-48 md:h-60" />
       </div>
       <div className="bg-[rgba(255,255,255,0.7)] relative shadow-md rounded-xl p-4 top-[-40px] w-full max-w-xs sm:max-w-md lg:max-w-lg text-center">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Join SundarGrove!</h1>
@@ -69,6 +70,14 @@ useEffect(() => {
             placeholder="Email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className="rounded-xl px-3 py-2 sm:py-3 bg-[rgba(4,132,67,0.36)] text-sm sm:text-base"
+            required
+          />
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            value={form.phone}
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
             className="rounded-xl px-3 py-2 sm:py-3 bg-[rgba(4,132,67,0.36)] text-sm sm:text-base"
             required
           />

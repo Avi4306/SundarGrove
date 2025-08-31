@@ -32,7 +32,9 @@ function ModerateReports() {
           reports.map((report) => (
             <div key={report._id} className="p-4 border border-gray-200 rounded-lg">
               <h3 className="text-lg font-semibold">{report.title}</h3>
-              <p className="text-sm text-gray-600">Reported by: {report.reporterName}</p>
+              <p className="text-sm text-gray-600">
+                Reported by: {report.createdBy?.name || report.createdBy?.email || "Unknown"}
+              </p>
               <p className="mt-2 text-gray-800">{report.description}</p>
               <div className="mt-4 space-x-2">
                 <button
