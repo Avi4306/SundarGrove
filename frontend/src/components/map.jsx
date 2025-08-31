@@ -19,8 +19,8 @@ import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 // Custom colored marker icons
 const iconColors = {
   pending: 'blue',
-  confirmed: 'green',
-  flagged: 'red',
+  accepted: 'green',
+  rejected: 'red',
 };
 const statusIcons = {
   pending: L.icon({
@@ -29,13 +29,13 @@ const statusIcons = {
     iconSize: [25, 41],
     iconAnchor: [12, 41],
   }),
-  confirmed: L.icon({
+  accepted: L.icon({
     iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-${iconColors.confirmed}.png`,
     shadowUrl,
     iconSize: [25, 41],
     iconAnchor: [12, 41],
   }),
-  flagged: L.icon({
+  rejected: L.icon({
     iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-${iconColors.flagged}.png`,
     shadowUrl,
     iconSize: [25, 41],
@@ -172,11 +172,11 @@ const MangroveMap = ({ geoJsonPath, markers = [], initialPosition = [23.0225, 72
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
           <img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png" alt="Confirmed" className="w-4 h-6 sm:w-5 sm:h-8" />
-          <span className="text-green-700 font-semibold text-xs sm:text-sm">Confirmed</span>
+          <span className="text-green-700 font-semibold text-xs sm:text-sm">Accepted</span>
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
           <img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png" alt="Flagged/False" className="w-4 h-6 sm:w-5 sm:h-8" />
-          <span className="text-red-700 font-semibold text-xs sm:text-sm">Flagged/False</span>
+          <span className="text-red-700 font-semibold text-xs sm:text-sm">Rejected</span>
         </div>
       </div>
     </div>
