@@ -103,7 +103,28 @@ export const rejectReportById = async (req, res) => {
     }
     report.status = 'rejected';
     await report.save();
+    await User.findByIdAndUpdate(report.createdBy, { $inc: { points: -5 } });
     res.json({ msg: 'Report rejected successfully' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+};
+
+export const getUserCount = async (req, res) => {
+  try {
+    const count = await User.countDocuments();
+    res.json({ count });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+};
+
+export const getAllReports = async (req, res) => {
+  try {
+    const reports = await Report.find().populate('createdBy', ['name', 'email']);
+    res.json(reports);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
