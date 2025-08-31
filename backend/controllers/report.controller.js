@@ -1,4 +1,5 @@
 import Report from "../models/report.models.js";
+import User from '../models/user.models.js';
 
 export const createReport = async (req, res) => {
   try {
@@ -17,6 +18,16 @@ export const createReport = async (req, res) => {
     });
 
     await newReport.save();
+    const update = { $inc: { reportCount: 1 } };
+    if (status === 'verified') {
+      update.$inc.verifiedReports = 1;
+      update.$inc.points = 10;
+    } else if (status === 'rejected') {
+      update.$inc.points = -10;
+    }
+
+    // Update user stats
+    await User.findByIdAndUpdate(req.user.id, update);
     res.status(201).json(newReport);
   } catch (error) {
     console.error("Error creating report:", error);
