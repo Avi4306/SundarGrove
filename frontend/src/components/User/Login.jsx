@@ -1,3 +1,6 @@
+
+import SG1 from "../../assets/SG-1.jpg";
+import SGLogo from "../../assets/SG-Logo.png";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,9 +27,9 @@ function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center px-4 sm:px-6">
+  <div className="flex flex-col items-center min-h-screen bg-cover bg-center px-4 sm:px-6" style={{backgroundImage: `url(${SG1})`}}>
       <div className="mt-4 relative sm:mt-6 mb-6 sm:mb-4">
-        <img src="./src/assets/SG-Logo.png" alt="SundarGrove" className="h-40 sm:h-48 md:h-60" />
+  <img src={SGLogo} alt="SundarGrove" className="h-40 sm:h-48 md:h-60" />
       </div>
       <div className="bg-[rgba(255,255,255,0.7)] relative shadow-md rounded-xl p-4 top-[-40px] w-full max-w-xs sm:max-w-md lg:max-w-lg text-center">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Welcome Back, Guardian!</h1>

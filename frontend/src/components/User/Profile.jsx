@@ -1,4 +1,7 @@
 
+import SG1 from "../../assets/SG-1.jpg";
+import SGLogo from "../../assets/SG-Logo.png";
+
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/user";
 import { useEffect, useState } from "react";
@@ -40,7 +43,7 @@ function Profile() {
   const badges = user.badges || [];
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center px-2 sm:px-6 md:px-12 pt-20 bg-[url('./src/assets/SG-1.jpg')] bg-cover bg-center">
+  <div className="relative min-h-screen flex flex-col items-center justify-center px-2 sm:px-6 md:px-12 pt-20 bg-cover bg-center" style={{backgroundImage: `url(${SG1})`}}>
       <FloatingNavBar />
       <div className="min-h-screen w-full flex flex-col items-center justify-center p-4 sm:p-8">
   <div className="flex flex-col lg:flex-row gap-8 sm:gap-16 w-full max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-5xl justify-center items-stretch">
@@ -51,7 +54,7 @@ function Profile() {
             className="bg-white/95 rounded-2xl shadow-2xl p-6 sm:p-12 flex-1 flex flex-col justify-center items-center border-2 border-green-300 min-w-0 mb-6 md:mb-0"
           >
             <motion.img
-              src="./src/assets/SG-Logo.png"
+              src={SGLogo}
               alt="Avatar"
               className="h-16 w-16 sm:h-24 sm:w-24 rounded-full shadow-md mb-2 sm:mb-4 border-2 border-green-500"
               initial={{ scale: 0.95, opacity: 0 }}
