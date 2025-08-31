@@ -43,3 +43,32 @@ export const home= async (req,res) => {
 export const getProfile = async (req, res) => {
   res.json(req.user);
 };
+
+export const updateUserRanks = async () => {
+  const users = await User.find().sort({ points: -1 }); // Sort by points descending
+  for (let i = 0; i < users.length; i++) {
+    users[i].rank = i + 1;
+    await users[i].save();
+  }
+};
+
+export const updateProfile = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const { name } = req.body;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { name: name.trim() },
+      { new: true, select: "-password" }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.json(updatedUser); // <-- Make sure you return the user object
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update profile." });
+  }
+};

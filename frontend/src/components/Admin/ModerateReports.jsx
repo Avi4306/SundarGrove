@@ -38,7 +38,7 @@ function ModerateReports() {
                 <h3 className="text-xl font-bold text-green-800 mb-1 flex items-center gap-2">
                   <FaFileAlt className="text-green-600" /> {report.title}
                 </h3>
-                <p className="text-sm text-blue-700 mb-2">Reported by: <span className="font-semibold">{report.createdBy}</span></p>
+                <p className="text-sm text-blue-700 mb-2">Reported by: <span className="font-semibold">{report.createdBy?.name}</span></p>
                 <p className="mb-2 text-gray-800">{report.description}</p>
                 <div className="mt-4 flex gap-4">
                   <button

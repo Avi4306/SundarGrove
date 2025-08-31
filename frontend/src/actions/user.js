@@ -1,8 +1,8 @@
-import { registerUser, loginUser, getProfile } from "../api/index";
+import { registerUser, loginUser, getProfile, updateProfile } from "../api/index";
 import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL, LOGOUT } from "../constants/actionTypes";
 
 // Register
-export const handleRegister = (formData, navigate) => async (dispatch) => {
+export const handleRegister = (formData) => async (dispatch) => {
   dispatch({ type: AUTH_START });
   try {
     const { data } = await registerUser(formData);
@@ -43,4 +43,14 @@ export const fetchProfile = () => async (dispatch) => {
 export const logout = () => (dispatch) => {
   localStorage.removeItem("token");
   dispatch({ type: LOGOUT });
+};
+
+export const updatePf = (formData) => async (dispatch) => {
+  try {
+    const { data } = await updateProfile(formData);
+    dispatch({ type: AUTH_SUCCESS, payload: {user : data} });
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };

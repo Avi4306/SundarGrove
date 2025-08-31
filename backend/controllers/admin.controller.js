@@ -1,5 +1,6 @@
 import User from '../models/user.models.js';
 import Report from '../models/report.models.js';
+import { updateUserRanks } from './user.controller.js';
 
 // @desc    Get all users
 // @route   GET /api/admin/users
@@ -29,7 +30,7 @@ export const deleteUserById = async (req, res) => {
     
     // Then, delete the user themselves
     await user.deleteOne();
-
+    updateUserRanks()
     res.json({ msg: 'User and all associated reports removed' });
   } catch (err) {
     console.error(err.message);
@@ -76,7 +77,7 @@ export const verifyReportById = async (req, res) => {
     if (!report) {
       return res.status(404).json({ msg: 'Report not found' });
     }
-    report.status = 'verified';
+    report.status = 'accepted';
     await report.save();
 
     const user = await User.findById(report.createdBy);
@@ -85,6 +86,7 @@ export const verifyReportById = async (req, res) => {
       user.verifiedReports += 1;
       await user.save();
     }
+    updateUserRanks()
     res.json({ msg: 'Report verified successfully' });
   } catch (err) {
     console.error(err.message);
@@ -105,6 +107,7 @@ export const rejectReportById = async (req, res) => {
     await report.save();
     await User.findByIdAndUpdate(report.createdBy, { $inc: { points: -5 } });
     res.json({ msg: 'Report rejected successfully' });
+    updateUserRanks()
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

@@ -25,6 +25,8 @@ const userSchema = new Schema({
   verifiedReports: { type: Number, default: 0 },
   reportedCount: { type: Number, default: 0 },
 
+  rank: { type: Number, default: 0 },
+
   isActive: { type: Boolean, default: true }
 });
 
