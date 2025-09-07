@@ -21,8 +21,8 @@ export const predictMangrove = async (req, res) => {
     });
 
     // --- Step 1: Flask prediction ---
-    console.log(`${process.env.FLASK_URL}predict`);
-    const flaskRes = await axios.post(`${process.env.FLASK_URL}predict`, formData, {
+    console.log(`${process.env.FLASK_URL}/predict`);
+    const flaskRes = await axios.post(`${process.env.FLASK_URL}/predict`, formData, {
       headers: formData.getHeaders(),
       maxContentLength: Infinity,
       maxBodyLength: Infinity,
