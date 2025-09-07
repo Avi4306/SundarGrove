@@ -1,4 +1,4 @@
-import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL, LOGOUT } from "../constants/actionTypes";
+import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL, LOGOUT, CLEAR_ERROR } from "../constants/actionTypes";
 
 const initialState = {
   user: null,
@@ -41,6 +41,11 @@ const auth = (state = initialState, action) => {
         loading: false,
         error: null,
         success: false,
+      };
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

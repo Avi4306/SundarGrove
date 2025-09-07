@@ -1,25 +1,39 @@
-
 import SG1 from "../../assets/SG-1.jpg";
 import SGLogo from "../../assets/SG-Logo.png";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { handleLogin } from "../../actions/user";
+import { handleLogin, clearAuthError } from "../../actions/user";
 
 function Login() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   const [form, setForm] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
   const { loading, error, user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
+  // scroll + clear error on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(clearAuthError());
+  }, [dispatch]);
+
+  // redirect if logged in + clear error
   useEffect(() => {
     if (user) {
+      dispatch(clearAuthError());
       navigate("/");
     }
-  }, [user, navigate]);
+  }, [user, navigate, dispatch]);
+
+  // auto-clear error after 5s
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        dispatch(clearAuthError());
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, dispatch]);
 
   const onSignIn = (e) => {
     e.preventDefault();
@@ -27,12 +41,17 @@ function Login() {
   };
 
   return (
-  <div className="flex flex-col items-center min-h-screen bg-cover bg-center px-4 sm:px-6" style={{backgroundImage: `url(${SG1})`}}>
+    <div
+      className="flex flex-col items-center min-h-screen bg-cover bg-center px-4 sm:px-6"
+      style={{ backgroundImage: `url(${SG1})` }}
+    >
       <div className="mt-4 relative sm:mt-6 mb-6 sm:mb-4">
-  <img src={SGLogo} alt="SundarGrove" className="h-40 sm:h-48 md:h-60" />
+        <img src={SGLogo} alt="SundarGrove" className="h-40 sm:h-48 md:h-60" />
       </div>
       <div className="bg-[rgba(255,255,255,0.7)] relative shadow-md rounded-xl p-4 top-[-40px] w-full max-w-xs sm:max-w-md lg:max-w-lg text-center">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Welcome Back, Guardian!</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+          Welcome Back, Guardian!
+        </h1>
         <p className="mb-4 sm:mb-6 text-gray-700 text-sm sm:text-base px-2">
           Sign in to access your dashboard and manage mangrove conservation activities.
         </p>
@@ -63,11 +82,22 @@ function Login() {
             </button>
           </div>
         </form>
-        {error && <p className="text-red-500 mt-3 text-center text-sm sm:text-base">{error}</p>}
-        {user && <p className="text-green-600 mt-3 text-center text-sm sm:text-base">Welcome {user.name || user.email}</p>}
+        {error && (
+          <p className="text-red-600 mt-3 text-center text-sm sm:text-base">
+            {error}
+          </p>
+        )}
+        {user && (
+          <p className="text-green-600 mt-3 text-center text-sm sm:text-base">
+            Welcome {user.name || user.email}
+          </p>
+        )}
         <div className="mt-4 sm:mt-6 text-gray-600 text-sm sm:text-base">
-          New to SundarGrove?{' '}
-          <Link to="/register" className="text-blue-600 font-semibold hover:underline">
+          New to SundarGrove?{" "}
+          <Link
+            to="/register"
+            className="text-blue-600 font-semibold hover:underline"
+          >
             Register
           </Link>
         </div>

@@ -1,5 +1,5 @@
 import { registerUser, loginUser, getProfile, updateProfile } from "../api/index";
-import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL, LOGOUT } from "../constants/actionTypes";
+import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL, LOGOUT, CLEAR_ERROR } from "../constants/actionTypes";
 
 // Register
 export const handleRegister = (formData) => async (dispatch) => {
@@ -53,4 +53,8 @@ export const updatePf = (formData) => async (dispatch) => {
   } catch (error) {
     throw error;
   }
+};
+
+export const clearAuthError = () => (dispatch) => {
+  dispatch({ type: CLEAR_ERROR });
 };
